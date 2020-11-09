@@ -1,4 +1,5 @@
-##Gameplay: 
+# Gameplay: 
+
 	* Widok 2D od gory pod katem, sterowanie jednym joystickem i przycisk, gracz pojawia sie na mapie i ma za zadanie zabijac 		przeciwnikow. Stwory pojawiaja sie co jakis czas na mapie i atakuja gracza. Gra toczy sie do smierci gracza.
 	* Gracz ma mozliwosc wyboru poziomu trudnosci - odblokowywane za zloto i doswiadczenie
 	* Za granie dostaje sie doswiadczenie i zloto.
@@ -8,7 +9,7 @@
 	* High score - do kazdego poziomu
 	* Daily questy
 	
-##Monetyzacja:
+# Monetyzacja:
 	* Zakup platnej waluty za PLN
 	* Mozliwosc odblokowania poziomow za platna walute
 	* Mozliwosc regeneracji energii za platna walute lub reklame
