@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private PlayerInputControls playerInputControls;
     Rigidbody2D rigidbody2d;
     float horizontal;
     float vertical;
+
+    private void Awake()
+    {
+        playerInputControls = new PlayerInputControls(); 
+    }
+
+    private void OnEnable()
+    {
+        playerInputControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerInputControls.Disable(); 
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +33,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        horizontal = playerInputControls.Default.MoveHorizontal.ReadValue<float>();
+        vertical = playerInputControls.Default.MoveVertical.ReadValue<float>();
     }
 
     void FixedUpdate()
