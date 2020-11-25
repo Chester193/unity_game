@@ -8,7 +8,6 @@ public class MobSpawner : MonoBehaviour
 {
 
     public GameObject enemy;
-    float randX;
     public float spawnRate = 1f;
     float nextSpawn = 0f;
 
