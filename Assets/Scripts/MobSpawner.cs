@@ -9,9 +9,9 @@ public class MobSpawner : MonoBehaviour
 
     public GameObject enemy;
     float randX;
-    Vector2 whereToSpawn;
     public float spawnRate = 1f;
     float nextSpawn = 0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +30,7 @@ public class MobSpawner : MonoBehaviour
 
     void Launch()
     {
-        whereToSpawn = new Vector2(transform.position.x, transform.position.y);
+        Vector2 whereToSpawn = new Vector2(transform.position.x, transform.position.y);
         GameObject gameobject = Instantiate(enemy, whereToSpawn, Quaternion.identity);
-
-        EnemyBehavior enemyBehavior = gameobject.GetComponent<EnemyBehavior>();
-        enemyBehavior.Launch();
-
     }
 }
