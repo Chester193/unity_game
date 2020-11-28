@@ -8,10 +8,16 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float vertical;
 
+    public HealthBar healthBar;
+    public int maxHealth = 100;
+    public int currentHealth;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -19,6 +25,11 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            TakeDamage(20);
+        }
     }
 
     void FixedUpdate()
@@ -28,5 +39,12 @@ public class PlayerController : MonoBehaviour
         position.y = position.y + 3.0f * vertical * Time.deltaTime;
 
         rigidbody2d.MovePosition(position);
+    }
+
+    void TakeDamage(int damage) 
+    {
+        currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
     }
 }
