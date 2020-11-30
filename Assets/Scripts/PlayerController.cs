@@ -12,12 +12,18 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
+    public ExpBar expBar;
+    private LevelMenager levelMenager;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        levelMenager = GetComponent<LevelMenager>();
     }
 
     // Update is called once per frame
@@ -26,9 +32,16 @@ public class PlayerController : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
+        expBar.SetExp(levelMenager.experience, levelMenager.experienceToNextLevel);
+
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             TakeDamage(20);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            levelMenager.AddExperience(74);
         }
     }
 
@@ -46,5 +59,16 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damage;
 
         healthBar.SetHealth(currentHealth);
+    }
+
+    public void LevelUp(int newMaxHealth) 
+    {
+        healthBar.SetMaxHealthOnLevelUp(newMaxHealth);
+
+        int newCurrentHealth = (int) (newMaxHealth * ((float)currentHealth / maxHealth));
+        healthBar.SetHealth(newCurrentHealth);
+
+        currentHealth = newCurrentHealth;
+        maxHealth = newMaxHealth;
     }
 }

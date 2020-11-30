@@ -17,6 +17,13 @@ public class HealthBar : MonoBehaviour
         fill.color = grandient.Evaluate(1f);
     }
 
+    public void SetMaxHealthOnLevelUp(int newMaxHealth)
+    {
+        slider.maxValue = newMaxHealth;
+        
+        fill.color = grandient.Evaluate(1f);
+    }
+
     public void SetHealth(int health) {
         slider.value = health;
 
