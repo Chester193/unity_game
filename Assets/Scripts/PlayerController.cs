@@ -52,12 +52,12 @@ public class PlayerController : MonoBehaviour
     {
         expBar.SetExp(levelMenager.experience, levelMenager.experienceToNextLevel);
 
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (false) 
         {
             TakeDamage(20);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (false)
         {
             levelMenager.AddExperience(74);
         }
