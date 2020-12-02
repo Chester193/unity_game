@@ -21,6 +21,7 @@ public class BulletBehaviour : MonoBehaviour
         if (other.gameObject.name == "enemy" || other.gameObject.name == "enemy(Clone)") {
             Destroy(other.gameObject);
             Destroy(gameObject);
+            PlayerStats.Points += 1;
         } else if (other.gameObject.name == "Tilemap") {
             Destroy(gameObject);
         }

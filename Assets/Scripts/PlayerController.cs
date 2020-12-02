@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,9 +13,13 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float vertical;
 
+    public int maxHealth = 5;
+    public int Health { get; private set; }
+
     private void Awake()
     {
-        playerInputControls = new PlayerInputControls(); 
+        playerInputControls = new PlayerInputControls();
+        Health = maxHealth;
     }
 
     private void OnEnable()
@@ -83,5 +88,15 @@ public class PlayerController : MonoBehaviour
                 rigidbody2d.rotation = 90f;
             }
         }
+    }
+
+    public void ChangeHealth(int amount)
+    {
+        Health += amount;
+
+        if (Health > maxHealth)
+            Health = maxHealth;
+        else if (Health <= 0)
+            SceneManager.LoadScene("Endgame");
     }
 }
