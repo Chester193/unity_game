@@ -86,7 +86,12 @@ public class EnemyBehavior : MonoBehaviour
         //if(other.gameObject.GetType)
         if(other.gameObject.name == "player")
         {
-            Destroy(gameObject);
+            PlayerController controller = other.gameObject.GetComponent<PlayerController>();
+
+            if (controller != null)
+            {
+                controller.ChangeHealth(-1);
+            }
         }
     }
 }
