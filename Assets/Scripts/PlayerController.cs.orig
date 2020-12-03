@@ -13,17 +13,22 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float vertical;
 
+<<<<<<< HEAD
     public HealthBar healthBar;
     public int maxHealth = 100;
     public int currentHealth;
 
     public ExpBar expBar;
     private LevelMenager levelMenager;
+=======
+    public int maxHealth = 5;
+    public int Health { get; private set; }
+>>>>>>> main
 
     private void Awake()
     {
         playerInputControls = new PlayerInputControls();
-        currentHealth = maxHealth;
+        Health = maxHealth;
     }
 
     private void OnEnable()
@@ -56,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (false) 
         {
-            ChangeHealth(20);
+            TakeDamage(20);
         }
 
         if (false)
@@ -112,9 +117,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangeHealth(int damage) 
+<<<<<<< HEAD
+    void TakeDamage(int damage) 
     {
-        currentHealth = Mathf.Clamp(currentHealth + damage, 0, maxHealth);
+        currentHealth -= damage;
+
         healthBar.SetHealth(currentHealth);
     }
 
@@ -127,5 +134,15 @@ public class PlayerController : MonoBehaviour
 
         currentHealth = newCurrentHealth;
         maxHealth = newMaxHealth;
+=======
+    public void ChangeHealth(int amount)
+    {
+        Health += amount;
+
+        if (Health > maxHealth)
+            Health = maxHealth;
+        else if (Health <= 0)
+            SceneManager.LoadScene("Endgame");
+>>>>>>> main
     }
 }
