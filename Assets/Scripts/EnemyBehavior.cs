@@ -15,6 +15,8 @@ public class EnemyBehavior : MonoBehaviour
 
     Seeker seeker;
     Rigidbody2D rigidbody2d;
+    Transform transform;
+    Animator animator;
 
 
     // Start is called before the first frame update
@@ -30,6 +32,8 @@ public class EnemyBehavior : MonoBehaviour
 
         rigidbody2d = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
+        transform = GetComponent<Transform>();
+        animator = GetComponent<Animator>();
 
 
         InvokeRepeating("UpdatePath", 0f, .5f);
@@ -69,6 +73,10 @@ public class EnemyBehavior : MonoBehaviour
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rigidbody2d.position).normalized;
+        if (direction.x > 0)
+            transform.localScale = new Vector3(0.15f, 0.15f, 1f);
+        else if (direction.x < 0)
+            transform.localScale = new Vector3(-0.15f, 0.15f, 1f);
         Vector2 force = direction * speed * Time.deltaTime;
 
         rigidbody2d.AddForce(force);
@@ -84,8 +92,9 @@ public class EnemyBehavior : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         //if(other.gameObject.GetType)
-        if(other.gameObject.name == "player")
+        if (other.gameObject.name == "player" && !animator.GetBool("isAttacking"))
         {
+            animator.SetBool("isAttacking", true);
             PlayerController controller = other.gameObject.GetComponent<PlayerController>();
 
             if (controller != null)
@@ -93,5 +102,25 @@ public class EnemyBehavior : MonoBehaviour
                 controller.ChangeHealth(-1);
             }
         }
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        OnCollisionEnter2D(other);
+    }
+
+    void EndAttack()
+    {
+        animator.SetBool("isAttacking", false);
+    }
+
+    public void Die()
+    {
+        animator.SetBool("isDying", true);
+    }
+
+    void Disappear()
+    {
+        Destroy(gameObject);
     }
 }

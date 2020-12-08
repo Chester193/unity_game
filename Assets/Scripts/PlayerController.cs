@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private PlayerInputControls playerInputControls;
-    public Transform firePoint;
-    public GameObject bulletObject;
+    public GameObject bulletPrefab;
 
     Rigidbody2D rigidbody2d;
+    Animator animator;
+    Transform transform;
     float horizontal;
     float vertical;
+    Vector2 lookDirection = new Vector2(1, 0);
 
     public int maxHealth = 5;
     public int Health { get; private set; }
@@ -36,6 +38,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        transform = GetComponent<Transform>();
         playerInputControls.Default.Fire.performed += _ => Shoot();
     }
 
@@ -44,13 +48,28 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = playerInputControls.Default.MoveHorizontal.ReadValue<float>();
         vertical = playerInputControls.Default.MoveVertical.ReadValue<float>();
+
+        if (horizontal != 0 || vertical != 0)
+        {
+            lookDirection = new Vector2(horizontal, vertical);
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        if (horizontal > 0)
+            transform.localScale = new Vector3(0.15f, 0.15f, 1f);
+        else if (horizontal < 0)
+            transform.localScale = new Vector3(-0.15f, 0.15f, 1f);
     }
 
     void Shoot() 
     {
-        GameObject bullet = Instantiate(bulletObject, firePoint.position, firePoint.rotation);
-        Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
-        rbBullet.AddForce(firePoint.up * 20f, ForceMode2D.Impulse);
+        GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+        BulletBehaviour bullet = bulletObject.GetComponent<BulletBehaviour>();
+        bullet.Launch(lookDirection, 300);
     }
 
     void FixedUpdate()
@@ -60,7 +79,7 @@ public class PlayerController : MonoBehaviour
         position.y = position.y + 3.0f * vertical * Time.deltaTime;
 
         rigidbody2d.MovePosition(position);
-        Rotate();
+        //Rotate();
     }
 
     void Rotate()
@@ -97,6 +116,11 @@ public class PlayerController : MonoBehaviour
         if (Health > maxHealth)
             Health = maxHealth;
         else if (Health <= 0)
-            SceneManager.LoadScene("Endgame");
+            animator.SetBool("isDying", true);
+    }
+
+    void Disappear()
+    {
+        SceneManager.LoadScene("Endgame");
     }
 }
