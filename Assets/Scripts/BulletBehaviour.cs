@@ -22,7 +22,6 @@ public class BulletBehaviour : MonoBehaviour
         if (other.gameObject.name == "Rogue_06" || other.gameObject.name == "Rogue_06(Clone)") {
             other.gameObject.GetComponent<EnemyBehavior>().Die();
             Destroy(gameObject);
-            PlayerStats.Points += 1;
         } else if (other.gameObject.name == "Tilemap") {
             Destroy(gameObject);
         }

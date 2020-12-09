@@ -121,6 +121,7 @@ public class EnemyBehavior : MonoBehaviour
 
     void Disappear()
     {
+        PlayerStats.Points += 1;
         Destroy(gameObject);
     }
 }
