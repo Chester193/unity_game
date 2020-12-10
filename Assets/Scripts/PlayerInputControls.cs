@@ -41,6 +41,14 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ChangeWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce097cfb-211b-452e-84d4-ae1a738f36b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -120,6 +128,17 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aea75279-d4ef-4de0-97e7-b284b533b6c5"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -131,6 +150,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         m_Default_MoveHorizontal = m_Default.FindAction("MoveHorizontal", throwIfNotFound: true);
         m_Default_MoveVertical = m_Default.FindAction("MoveVertical", throwIfNotFound: true);
         m_Default_Fire = m_Default.FindAction("Fire", throwIfNotFound: true);
+        m_Default_ChangeWeapon = m_Default.FindAction("ChangeWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,6 +203,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Default_MoveHorizontal;
     private readonly InputAction m_Default_MoveVertical;
     private readonly InputAction m_Default_Fire;
+    private readonly InputAction m_Default_ChangeWeapon;
     public struct DefaultActions
     {
         private @PlayerInputControls m_Wrapper;
@@ -190,6 +211,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         public InputAction @MoveHorizontal => m_Wrapper.m_Default_MoveHorizontal;
         public InputAction @MoveVertical => m_Wrapper.m_Default_MoveVertical;
         public InputAction @Fire => m_Wrapper.m_Default_Fire;
+        public InputAction @ChangeWeapon => m_Wrapper.m_Default_ChangeWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -208,6 +230,9 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @Fire.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFire;
+                @ChangeWeapon.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChangeWeapon;
+                @ChangeWeapon.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChangeWeapon;
+                @ChangeWeapon.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChangeWeapon;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -221,6 +246,9 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @ChangeWeapon.started += instance.OnChangeWeapon;
+                @ChangeWeapon.performed += instance.OnChangeWeapon;
+                @ChangeWeapon.canceled += instance.OnChangeWeapon;
             }
         }
     }
@@ -230,5 +258,6 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         void OnMoveHorizontal(InputAction.CallbackContext context);
         void OnMoveVertical(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnChangeWeapon(InputAction.CallbackContext context);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerInputControls playerInputControls;
     public GameObject bulletPrefab;
+    public GameObject explodingBulletObject;
 
     Rigidbody2D rigidbody2d;
     Animator animator;
@@ -17,6 +18,14 @@ public class PlayerController : MonoBehaviour
 
     public int maxHealth = 5;
     public int Health { get; private set; }
+
+    int currentWeapon = 0;
+    int weaponAmount = 3;
+    float nextFireTime = 0;
+    float pistolCooldown = 0.2f;
+    float shotgunCooldown = 1;
+    float diagonalCooldown = 0.5f;
+    float grenadeCooldown = 2;
 
     private void Awake()
     {
@@ -41,6 +50,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         playerInputControls.Default.Fire.performed += _ => Shoot();
+        playerInputControls.Default.ChangeWeapon.performed += _ => ChangeWeapon();
     }
 
     // Update is called once per frame
@@ -67,9 +77,84 @@ public class PlayerController : MonoBehaviour
 
     void Shoot() 
     {
-        GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
-        BulletBehaviour bullet = bulletObject.GetComponent<BulletBehaviour>();
-        bullet.Launch(lookDirection, 300);
+        // Pistol
+        if (currentWeapon == 0 && Time.time > nextFireTime)
+        {
+            GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+            BulletBehaviour bullet = bulletObject.GetComponent<BulletBehaviour>();
+            bullet.Launch(lookDirection, 20f);
+            nextFireTime = Time.time + pistolCooldown;
+        }
+        // Shotgun
+        else if (currentWeapon == 1 && Time.time > nextFireTime)
+        {
+            Random random = new Random();
+            for (int i = 0; i < Random.Range(5, 15); i++)
+            {
+
+                GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+                BulletBehaviour bullet = bulletObject.GetComponent<BulletBehaviour>();
+                bullet.Launch(lookDirection * Random.Range(10f, 15f) + new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)), 1);
+            }
+            nextFireTime = Time.time + shotgunCooldown;
+        }
+        // Diagonal gun
+        else if (currentWeapon == 2 && Time.time > nextFireTime)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+            GameObject bullet2 = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+            GameObject bullet3 = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+            BulletBehaviour frontBullet = bullet.GetComponent<BulletBehaviour>();
+            BulletBehaviour leftBullet = bullet2.GetComponent<BulletBehaviour>();
+            BulletBehaviour rightBullet = bullet3.GetComponent<BulletBehaviour>();
+            frontBullet.Launch(lookDirection, 10f);
+            rightBullet.Launch(GetDiagonals(lookDirection)[0], 10f);
+            leftBullet.Launch(GetDiagonals(lookDirection)[1], 10f);
+            nextFireTime = Time.time + diagonalCooldown;
+        }
+        // Grenade
+        else if (currentWeapon == 3 && Time.time > nextFireTime)
+        {
+            GameObject bulletObject = Instantiate(explodingBulletObject, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+            ExplodingBulletBehaviour bullet = bulletObject.GetComponent<ExplodingBulletBehaviour>();
+            bullet.Launch(lookDirection, 10f);
+            nextFireTime = Time.time + grenadeCooldown;
+        }
+    }
+
+    Vector2 [] GetDiagonals(Vector2 front)
+    {
+        Vector2 right = new Vector2(front.x, front.y);
+        Vector2 left = new Vector2(front.x, front.y);
+        if (front.x == 0)
+        {
+            right.x = 1;
+            left.x = -1;
+        }
+        else if (front.y == 0)
+        {
+            right.y = 1;
+            left.y = -1;
+        }
+        else
+        {
+            right.x = 0;
+            left.y = 0;
+        }
+        return new Vector2 [] {left, right};
+    }
+
+    void ChangeWeapon()
+    {
+        nextFireTime = 0;
+        if (currentWeapon + 1 > weaponAmount)
+        {
+            currentWeapon = 0;
+        }
+        else
+        {
+            currentWeapon++;
+        }
     }
 
     void FixedUpdate()

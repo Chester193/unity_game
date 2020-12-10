@@ -14,7 +14,7 @@ public class BulletBehaviour : MonoBehaviour
 
     public void Launch(Vector2 direction, float force)
     {
-        rigidbody2d.AddForce(direction * force);
+        rigidbody2d.AddForce(direction * force, ForceMode2D.Impulse);
     }
 
     void OnCollisionEnter2D(Collision2D other)

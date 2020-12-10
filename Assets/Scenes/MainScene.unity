@@ -2359,6 +2359,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MobSpawner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 235019921516272613, guid: 72a293f1786c21049a55bb777515b125, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72a293f1786c21049a55bb777515b125, type: 3}
 --- !u!1 &362521565
@@ -2442,6 +2446,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 466196910, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
+      propertyPath: explodingBulletObject
+      value: 
+      objectReference: {fileID: 3384010831860641879, guid: c1897514195906a4ab56288d83271db0, type: 3}
     - target: {fileID: 1000013304306144, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
       propertyPath: m_Name
       value: player
@@ -3056,6 +3064,10 @@ PrefabInstance:
     - target: {fileID: 235019921516272613, guid: 72a293f1786c21049a55bb777515b125, type: 3}
       propertyPath: m_Name
       value: MobSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 235019921516272613, guid: 72a293f1786c21049a55bb777515b125, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72a293f1786c21049a55bb777515b125, type: 3}
