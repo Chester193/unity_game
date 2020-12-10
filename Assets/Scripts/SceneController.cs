@@ -7,17 +7,24 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public Button playButton;
+    public Button shopButton;
 
     // Start is called before the first frame update
     void Start()
     {
         playButton.GetComponent<Button>().onClick.AddListener(Play);
+        shopButton.GetComponent<Button>().onClick.AddListener(Shop);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void Shop()
+    {
+        SceneManager.LoadScene("ShopMenu");
     }
 
     void Play()
