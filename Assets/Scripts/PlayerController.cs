@@ -13,17 +13,13 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float vertical;
 
-    public HealthBar healthBar;
-    public int maxHealth = 100;
-    public int currentHealth;
-
-    public ExpBar expBar;
-    private LevelMenager levelMenager;
+    public int maxHealth = 5;
+    public int Health { get; private set; }
 
     private void Awake()
     {
         playerInputControls = new PlayerInputControls();
-        currentHealth = maxHealth;
+        Health = maxHealth;
     }
 
     private void OnEnable()
@@ -40,30 +36,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
-
-        levelMenager = GetComponent<LevelMenager>();
-
         playerInputControls.Default.Fire.performed += _ => Shoot();
     }
 
     // Update is called once per frame
     void Update()
     {
-        expBar.SetExp(levelMenager.experience, levelMenager.experienceToNextLevel);
-
-        if (false) 
-        {
-            ChangeHealth(20);
-        }
-
-        if (false)
-        {
-            levelMenager.AddExperience(74);
-        }
-
         horizontal = playerInputControls.Default.MoveHorizontal.ReadValue<float>();
         vertical = playerInputControls.Default.MoveVertical.ReadValue<float>();
     }
@@ -112,20 +90,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangeHealth(int damage) 
+    public void ChangeHealth(int amount)
     {
-        currentHealth = Mathf.Clamp(currentHealth + damage, 0, maxHealth);
-        healthBar.SetHealth(currentHealth);
-    }
+        Health += amount;
 
-    public void LevelUp(int newMaxHealth) 
-    {
-        healthBar.SetMaxHealthOnLevelUp(newMaxHealth);
-
-        int newCurrentHealth = (int) (newMaxHealth * ((float)currentHealth / maxHealth));
-        healthBar.SetHealth(newCurrentHealth);
-
-        currentHealth = newCurrentHealth;
-        maxHealth = newMaxHealth;
+        if (Health > maxHealth)
+            Health = maxHealth;
+        else if (Health <= 0)
+            SceneManager.LoadScene("Endgame");
     }
 }
