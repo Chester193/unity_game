@@ -117,6 +117,8 @@ public class PlayerController : MonoBehaviour
             Health = maxHealth;
         else if (Health <= 0)
             animator.SetBool("isDying", true);
+
+        UIHealthBar.instance.SetValue(Health / (float)maxHealth);
     }
 
     void Disappear()
