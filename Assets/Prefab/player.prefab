@@ -115,7 +115,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &1339037401676099323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b66ddf2d0fd9546b2576759d6b6d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 310585987}
-  bulletObject: {fileID: 3192262011823926651, guid: 1448808801c783893bbd3b183fc9b79e, type: 3}
+  bulletPrefab: {fileID: 0}
+  explodingBulletObject: {fileID: 0}
   maxHealth: 5
 --- !u!50 &4476949705182668558
 Rigidbody2D:
