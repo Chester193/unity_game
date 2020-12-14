@@ -1628,6 +1628,7 @@ GameObject:
   - component: {fileID: 466196909}
   - component: {fileID: 466196908}
   - component: {fileID: 466196910}
+  - component: {fileID: 1409388031598573821}
   m_Layer: 8
   m_Name: Rogue_05
   m_TagString: Untagged
@@ -1729,8 +1730,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3192262011823926651, guid: 1448808801c783893bbd3b183fc9b79e, type: 3}
-  explodingBulletObject: {fileID: 0}
+  explodingBulletObject: {fileID: 3384010831860641879, guid: c1897514195906a4ab56288d83271db0, type: 3}
   maxHealth: 5
+--- !u!210 &1409388031598573821
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013304306144}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1000013386911906
 GameObject:
   m_ObjectHideFlags: 0

@@ -19905,14 +19905,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 466196910, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
-      propertyPath: explodingBulletObject
-      value: 
-      objectReference: {fileID: 3384010831860641879, guid: c1897514195906a4ab56288d83271db0, type: 3}
-    - target: {fileID: 1000012671429376, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1000013304306144, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
       propertyPath: m_Name
       value: player
@@ -21254,6 +21246,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 172124186693078878, guid: d9a793612bd704b42a747fb5a906b8d0, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5325170645562739138, guid: d9a793612bd704b42a747fb5a906b8d0, type: 3}
       propertyPath: m_Name
       value: building_1 (4)
