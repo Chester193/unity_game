@@ -23,14 +23,9 @@ public class ExplodingBulletBehaviour : MonoBehaviour
         if (other.gameObject.name == "Rogue_06" || other.gameObject.name == "Rogue_06(Clone)")
         {
             other.gameObject.GetComponent<EnemyBehavior>().Die();
-            Destroy(gameObject);
-            explode();
         }
-        else if (other.gameObject.name == "Tilemap")
-        {
-            Destroy(gameObject);
-            explode();
-        }
+        Destroy(gameObject);
+        explode();
     }
 
     void explode()

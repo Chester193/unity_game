@@ -19,11 +19,10 @@ public class BulletBehaviour : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.name == "Rogue_06" || other.gameObject.name == "Rogue_06(Clone)") {
+        if (other.gameObject.name == "Rogue_06" || other.gameObject.name == "Rogue_06(Clone)")
+        {
             other.gameObject.GetComponent<EnemyBehavior>().Die();
-            Destroy(gameObject);
-        } else if (other.gameObject.name == "Tilemap") {
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 }
