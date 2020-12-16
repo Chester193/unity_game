@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIExpBar : MonoBehaviour
+public class UiEnergyBar : MonoBehaviour
 {
-    public Text level;
     public Image mask;
     float originalSize;
 
     void Start()
     {
         originalSize = mask.rectTransform.rect.width;
-        mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * PlayerStats.GetExp());
-        level.text = PlayerStats.Level.ToString();
+        mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * PlayerStats.GetEnergy());
     }
 }
