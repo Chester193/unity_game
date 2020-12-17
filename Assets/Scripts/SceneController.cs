@@ -29,6 +29,10 @@ public class SceneController : MonoBehaviour
 
     void Play()
     {
-        SceneManager.LoadScene("MainScene");
+        if(PlayerStats.Energy > 0)
+        {
+            PlayerStats.UpdateEnergy(-1);
+            SceneManager.LoadScene("MainScene");
+        }
     }
 }
