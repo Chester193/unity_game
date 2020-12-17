@@ -10,4 +10,3 @@ public class ChangeLevel : MonoBehaviour
         SceneManager.LoadScene(level);
     }
 }
-
