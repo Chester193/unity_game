@@ -64711,6 +64711,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4671418857680895808, guid: e1db6fb8ab0d2a54193b822c097a8162, type: 3}
+      propertyPath: bombObject
+      value: 
+      objectReference: {fileID: 7836148198532459886, guid: a72885e93c1e4c5449d8f2a4888f2ed7, type: 3}
     - target: {fileID: 4672408965318901518, guid: e1db6fb8ab0d2a54193b822c097a8162, type: 3}
       propertyPath: m_Name
       value: player
