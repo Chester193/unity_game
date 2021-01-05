@@ -49,6 +49,14 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""LandMine"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2319b7a-4129-406b-ae3f-1d61f9dd8d0c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -139,6 +147,17 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""action"": ""ChangeWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f0ab3f7-7521-40e5-a272-1ce2eebdae2c"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LandMine"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -151,6 +170,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         m_Default_MoveVertical = m_Default.FindAction("MoveVertical", throwIfNotFound: true);
         m_Default_Fire = m_Default.FindAction("Fire", throwIfNotFound: true);
         m_Default_ChangeWeapon = m_Default.FindAction("ChangeWeapon", throwIfNotFound: true);
+        m_Default_LandMine = m_Default.FindAction("LandMine", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,6 +224,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Default_MoveVertical;
     private readonly InputAction m_Default_Fire;
     private readonly InputAction m_Default_ChangeWeapon;
+    private readonly InputAction m_Default_LandMine;
     public struct DefaultActions
     {
         private @PlayerInputControls m_Wrapper;
@@ -212,6 +233,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         public InputAction @MoveVertical => m_Wrapper.m_Default_MoveVertical;
         public InputAction @Fire => m_Wrapper.m_Default_Fire;
         public InputAction @ChangeWeapon => m_Wrapper.m_Default_ChangeWeapon;
+        public InputAction @LandMine => m_Wrapper.m_Default_LandMine;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +255,9 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @ChangeWeapon.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChangeWeapon;
                 @ChangeWeapon.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChangeWeapon;
                 @ChangeWeapon.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnChangeWeapon;
+                @LandMine.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLandMine;
+                @LandMine.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLandMine;
+                @LandMine.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLandMine;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +274,9 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @ChangeWeapon.started += instance.OnChangeWeapon;
                 @ChangeWeapon.performed += instance.OnChangeWeapon;
                 @ChangeWeapon.canceled += instance.OnChangeWeapon;
+                @LandMine.started += instance.OnLandMine;
+                @LandMine.performed += instance.OnLandMine;
+                @LandMine.canceled += instance.OnLandMine;
             }
         }
     }
@@ -259,5 +287,6 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         void OnMoveVertical(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnChangeWeapon(InputAction.CallbackContext context);
+        void OnLandMine(InputAction.CallbackContext context);
     }
 }

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputControls playerInputControls;
     public GameObject bulletPrefab;
     public GameObject explodingBulletObject;
+    public GameObject bombObject;
 
     Rigidbody2D rigidbody2d;
     Animator animator;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
         transform = GetComponent<Transform>();
         playerInputControls.Default.Fire.performed += _ => Shoot();
         playerInputControls.Default.ChangeWeapon.performed += _ => ChangeWeapon();
+        playerInputControls.Default.LandMine.performed += _ => LandMine();
     }
 
     // Update is called once per frame
@@ -73,6 +75,11 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(0.15f, 0.15f, 1f);
         else if (horizontal < 0)
             transform.localScale = new Vector3(-0.15f, 0.15f, 1f);
+    }
+
+    void LandMine()
+    {
+        GameObject landMineObject = Instantiate(bombObject, rigidbody2d.position + (-vertical * Vector2.up) + (-horizontal * Vector2.right), Quaternion.identity);
     }
 
     void Shoot() 
