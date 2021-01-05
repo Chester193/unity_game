@@ -1,0 +1,5 @@
+Product ID,Published State,Purchase Type,Auto Translate,Locale; Title; Description,Auto Fill Prices,Price,Pricing Template ID
+310_wi_bucks,published,managed_by_android,false,pl_PL;310 Wi Bucks;310 Wi Bucks,true,6000000,
+670_wi_bucks,published,managed_by_android,false,pl_PL;670 Wi Bucks;670 Wi Bucks,true,16000000,
+1820_wi_bucks,published,managed_by_android,false,pl_PL;1820 Wi Bucks;1820 Wi Bucks,true,46000000,
+3690_wi_bucks,published,managed_by_android,false,pl_PL;3690 Wi Bucks;3690 Wi Bucks,true,96000000,

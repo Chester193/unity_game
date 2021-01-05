@@ -23,6 +23,6 @@ public class EndgameController : MonoBehaviour
     void Menu()
     {
         SceneManager.LoadScene("MainMenu");
-        PlayerStats.Points = 0;
+        PlayerStats.SavePoints();
     }
 }
