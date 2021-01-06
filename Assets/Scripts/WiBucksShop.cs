@@ -7,18 +7,9 @@ using System;
 public class WiBucksShop : MonoBehaviour
 {
     public Text text;
-    private IAPManager iAPManager;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        iAPManager = IAPManager.Instance;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        text.text = iAPManager.coins.ToString();
+        text.text = PlayerStats.WiBucks.ToString();
     }
 
     public void BuyAnItem(string data)
@@ -38,7 +29,7 @@ public class WiBucksShop : MonoBehaviour
             return;
         }
 
-        if (iAPManager.ChargeWiBuckets(cost))
+        if (PlayerStats.SpendWiBucks(cost))
         {
             Debug.Log("Kupiono item o id " + itemId.ToString());
         }

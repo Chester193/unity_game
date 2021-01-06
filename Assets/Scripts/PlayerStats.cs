@@ -75,7 +75,7 @@ public static class PlayerStats
 
     public static bool SpendWiBucks(int amount)
     {
-        if (WiBucks - amount >= 0)
+        if (WiBucks >= amount)
         {
             WiBucks -= amount;
             return true;
