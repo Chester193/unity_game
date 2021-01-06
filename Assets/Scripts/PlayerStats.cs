@@ -11,6 +11,8 @@ public static class PlayerStats
     public static int Energy { get; private set; } = maxEnergy;
     public static int Points { get; set; }
     public static int Level { get; private set; }
+    public static int Money { get; private set; }
+    public static int WiBucks { get; private set; } = 10;
 
     public static float GetExp()
     {
@@ -35,6 +37,7 @@ public static class PlayerStats
     public static void SavePoints()
     {
         experienceAmount += Points;
+        Money += Points;
         UpdateLevel();
         Points = 0;
     }
@@ -47,5 +50,37 @@ public static class PlayerStats
             experienceToNextLevel = (int)((float)experienceToNextLevel * 2f * 0.72);
             Level++;
         }
+    }
+
+    public static void EarnMoney(int amount)
+    {
+        Money += amount;
+    }
+
+    public static bool SpendMoney(int amount)
+    {
+        if (Money - amount >= 0)
+        {
+            Money -= amount;
+            return true;
+        }
+
+        return false;
+    }
+
+    public static void EarnWiBucks(int amount)
+    {
+        WiBucks += amount;
+    }
+
+    public static bool SpendWiBucks(int amount)
+    {
+        if (WiBucks - amount >= 0)
+        {
+            WiBucks -= amount;
+            return true;
+        }
+
+        return false;
     }
 }
