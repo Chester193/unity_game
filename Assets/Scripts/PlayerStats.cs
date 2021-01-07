@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public static class PlayerStats
     private static int experienceToNextLevel = 10;
     private static int experienceAmount = 0;
     private static int maxEnergy = 5;
+    private static TimeSpan energyUpdatePeriod = new TimeSpan(0, 1, 0);
+    private static DateTime lastEnergyUpdate = DateTime.Now;
 
     public static int Energy { get; private set; } = maxEnergy;
     public static int Points { get; set; }
@@ -21,6 +24,15 @@ public static class PlayerStats
 
     public static float GetEnergy()
     {
+        while(DateTime.Now - energyUpdatePeriod > lastEnergyUpdate)
+        {
+            lastEnergyUpdate = lastEnergyUpdate + energyUpdatePeriod;
+
+            if (Energy >= maxEnergy)
+                break;
+
+            UpdateEnergy(1);
+        }
         return (float)Energy / maxEnergy;
     }
 
