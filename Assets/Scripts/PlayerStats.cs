@@ -15,7 +15,7 @@ public static class PlayerStats
     public static int Points { get; set; }
     public static int Level { get; private set; }
     public static int Money { get; private set; }
-    public static int WiBucks { get; private set; } = 10;
+    public static int WiBucks { get; private set; }
 
     public static float GetExp()
     {
@@ -24,7 +24,13 @@ public static class PlayerStats
 
     public static float GetEnergy()
     {
-        while(DateTime.Now - energyUpdatePeriod > lastEnergyUpdate)
+        RestoreEnergy();
+        return (float)Energy / maxEnergy;
+    }
+
+    public static void RestoreEnergy()
+    {
+        while (DateTime.Now - energyUpdatePeriod > lastEnergyUpdate)
         {
             lastEnergyUpdate = lastEnergyUpdate + energyUpdatePeriod;
 
@@ -33,7 +39,8 @@ public static class PlayerStats
 
             UpdateEnergy(1);
         }
-        return (float)Energy / maxEnergy;
+        SaveEnergy();
+        SaveEnergyTimer();
     }
 
     public static void UpdateEnergy(int value)
@@ -44,12 +51,14 @@ public static class PlayerStats
             Energy = 0;
         else if (Energy > maxEnergy)
             Energy = maxEnergy;
+
+        SaveEnergy();
     }
 
     public static void SavePoints()
     {
         experienceAmount += Points;
-        Money += Points;
+        EarnMoney(Points);
         UpdateLevel();
         Points = 0;
     }
@@ -62,11 +71,13 @@ public static class PlayerStats
             experienceToNextLevel = (int)((float)experienceToNextLevel * 2f * 0.72);
             Level++;
         }
+        SaveLevel();
     }
 
     public static void EarnMoney(int amount)
     {
         Money += amount;
+        SaveMoney();
     }
 
     public static bool SpendMoney(int amount)
@@ -74,15 +85,18 @@ public static class PlayerStats
         if (Money - amount >= 0)
         {
             Money -= amount;
+            SaveMoney();
             return true;
         }
 
+        SaveMoney();
         return false;
     }
 
     public static void EarnWiBucks(int amount)
     {
         WiBucks += amount;
+        SaveWiBucks();
     }
 
     public static bool SpendWiBucks(int amount)
@@ -90,9 +104,56 @@ public static class PlayerStats
         if (WiBucks >= amount)
         {
             WiBucks -= amount;
+            SaveWiBucks();
             return true;
         }
 
+        SaveWiBucks();
         return false;
+    }
+
+    private static void SaveMoney()
+    {
+        PlayerPrefs.SetInt("money", Money);
+        PlayerPrefs.Save();
+    }
+
+    private static void SaveWiBucks()
+    {
+        PlayerPrefs.SetInt("wi_bucks", WiBucks);
+        PlayerPrefs.Save();
+    }
+
+    private static void SaveEnergy()
+    {
+        PlayerPrefs.SetInt("energy", Energy);
+        PlayerPrefs.Save();
+    }
+
+    private static void SaveEnergyTimer()
+    {
+        PlayerPrefs.SetString("last_energy_update", lastEnergyUpdate.ToString());
+        PlayerPrefs.Save();
+    }
+
+    private static void SaveLevel()
+    {
+        PlayerPrefs.SetInt("level", Level);
+        PlayerPrefs.SetInt("exp", experienceAmount);
+        PlayerPrefs.SetInt("exp_to_next_level", experienceToNextLevel);
+        PlayerPrefs.Save();
+    }
+
+    public static void ReadPlayerPrefs()
+    {
+        Money = PlayerPrefs.GetInt("money", Money);
+        WiBucks = PlayerPrefs.GetInt("wi_bucks", WiBucks);
+        Energy = PlayerPrefs.GetInt("energy", Energy);
+        Level = PlayerPrefs.GetInt("level", Level);
+        experienceAmount = PlayerPrefs.GetInt("exp", experienceAmount);
+        experienceToNextLevel = PlayerPrefs.GetInt("exp_to_next_level", experienceToNextLevel);
+        string last_energy_update = PlayerPrefs.GetString("last_energy_update", "");
+        if (last_energy_update != "")
+            lastEnergyUpdate = DateTime.Parse(last_energy_update);
     }
 }
