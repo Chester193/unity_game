@@ -9,6 +9,11 @@ public class SceneController : MonoBehaviour
     public Button playButton;
     public Button shopButton;
 
+    void Awake()
+    {
+        PlayerStats.ReadPlayerPrefs();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
