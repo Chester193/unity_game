@@ -79,7 +79,11 @@ public class PlayerController : MonoBehaviour
 
     void LandMine()
     {
-        GameObject landMineObject = Instantiate(bombObject, rigidbody2d.position + (-vertical * Vector2.up) + (-horizontal * Vector2.right), Quaternion.identity);
+        if(PlayerStats.HasMines != 0)
+        {
+            GameObject landMineObject = Instantiate(bombObject, rigidbody2d.position + (-vertical * Vector2.up) + (-horizontal * Vector2.right), Quaternion.identity);
+
+        }
     }
 
     void Shoot() 
@@ -154,13 +158,16 @@ public class PlayerController : MonoBehaviour
     void ChangeWeapon()
     {
         nextFireTime = 0;
-        if (currentWeapon + 1 > weaponAmount)
+        if(PlayerStats.HasAllGuns != 0)
         {
-            currentWeapon = 0;
-        }
-        else
-        {
-            currentWeapon++;
+            if (currentWeapon + 1 > weaponAmount)
+            {
+                currentWeapon = 0;
+            }
+            else
+            {
+                currentWeapon++;
+            }
         }
     }
 

@@ -31,6 +31,26 @@ public class WiBucksShop : MonoBehaviour
 
         if (PlayerStats.SpendWiBucks(cost))
         {
+            if(itemId == 1) //unlock map
+            {
+                //todo
+            }
+            if(itemId == 2)//unllock guns
+            {
+                PlayerStats.UnlockGuns();
+            }
+            if(itemId == 3) //+1 energy
+            {
+                PlayerStats.UpdateEnergy(1);
+            }
+            if(itemId == 4) //max energy
+            {
+                PlayerStats.UpdateEnergy(10);
+            }
+            if(itemId == 5)
+            {
+                PlayerStats.UnlockMines();
+            }
             Debug.Log("Kupiono item o id " + itemId.ToString());
         }
         else

@@ -17,6 +17,10 @@ public static class PlayerStats
     public static int Money { get; private set; }
     public static int WiBucks { get; private set; }
 
+    public static int HasAllGuns { get; private set; }
+    public static int HasMines { get; private set; }
+
+
     public static float GetExp()
     {
         return (float)experienceAmount / experienceToNextLevel;
@@ -144,6 +148,18 @@ public static class PlayerStats
         PlayerPrefs.Save();
     }
 
+    public static void UnlockGuns()
+    {
+        PlayerPrefs.SetInt("has_all_guns", 1);
+        PlayerPrefs.Save();
+    }
+
+    public static void UnlockMines()
+    {
+        PlayerPrefs.SetInt("has_mines", 1);
+        PlayerPrefs.Save();
+    }
+
     public static void ReadPlayerPrefs()
     {
         Money = PlayerPrefs.GetInt("money", Money);
@@ -152,6 +168,10 @@ public static class PlayerStats
         Level = PlayerPrefs.GetInt("level", Level);
         experienceAmount = PlayerPrefs.GetInt("exp", experienceAmount);
         experienceToNextLevel = PlayerPrefs.GetInt("exp_to_next_level", experienceToNextLevel);
+
+        HasAllGuns = PlayerPrefs.GetInt("has_all_guns", HasAllGuns);
+        HasMines = PlayerPrefs.GetInt("has_mines", HasMines);
+
         string last_energy_update = PlayerPrefs.GetString("last_energy_update", "");
         if (last_energy_update != "")
             lastEnergyUpdate = DateTime.Parse(last_energy_update);
