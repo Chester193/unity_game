@@ -33,7 +33,7 @@ public class WiBucksShop : MonoBehaviour
         {
             if(itemId == 1) //unlock map
             {
-                //todo
+                PlayerStats.UnlockSecondLevel();
             }
             if(itemId == 2)//unllock guns
             {

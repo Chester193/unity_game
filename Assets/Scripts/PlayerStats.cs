@@ -19,6 +19,7 @@ public static class PlayerStats
 
     public static int HasAllGuns { get; private set; }
     public static int HasMines { get; private set; }
+    public static int HasSecondLevelUnlocked { get; private set; }
 
 
     public static float GetExp()
@@ -160,6 +161,12 @@ public static class PlayerStats
         PlayerPrefs.Save();
     }
 
+    public static void UnlockSecondLevel()
+    {
+        PlayerPrefs.SetInt("has_second_level", 1);
+        PlayerPrefs.Save();
+    }
+
     public static void ReadPlayerPrefs()
     {
         Money = PlayerPrefs.GetInt("money", Money);
@@ -171,6 +178,7 @@ public static class PlayerStats
 
         HasAllGuns = PlayerPrefs.GetInt("has_all_guns", HasAllGuns);
         HasMines = PlayerPrefs.GetInt("has_mines", HasMines);
+        HasSecondLevelUnlocked = PlayerPrefs.GetInt("has_second_level", HasSecondLevelUnlocked);
 
         string last_energy_update = PlayerPrefs.GetString("last_energy_update", "");
         if (last_energy_update != "")

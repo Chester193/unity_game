@@ -34,10 +34,6 @@ public class SceneController : MonoBehaviour
 
     void Play()
     {
-        if(PlayerStats.Energy > 0)
-        {
-            PlayerStats.UpdateEnergy(-1);
-            SceneManager.LoadScene("MainScene");
-        }
+        SceneManager.LoadScene("ChooseMap");
     }
 }

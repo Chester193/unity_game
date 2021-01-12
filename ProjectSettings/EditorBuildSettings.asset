@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BuyWiBucksMenu.unity
     guid: da64f13763a7aa8478cb0b6b15ab0e26
+  - enabled: 1
+    path: Assets/Scenes/ChooseMap.unity
+    guid: 61c256eebac0591439029bc7be117d2f
+  - enabled: 1
+    path: Assets/Scenes/SecondMapScene.unity
+    guid: 614076708274d62499c8f7ae28e5bad1
   m_configObjects: {}
