@@ -40,8 +40,10 @@ public static class PlayerStats
             lastEnergyUpdate = lastEnergyUpdate + energyUpdatePeriod;
 
             if (Energy >= maxEnergy)
+            {
+                lastEnergyUpdate = DateTime.Now;
                 break;
-
+            }
             UpdateEnergy(1);
         }
         SaveEnergy();
