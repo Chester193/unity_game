@@ -7,9 +7,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 466196910, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
+      propertyPath: explodingBulletObject
+      value: 
+      objectReference: {fileID: 3941379368817309, guid: 6e62bcdf86028184f8588e604f1fb4c3, type: 3}
+    - target: {fileID: 466196910, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 158912, guid: 05fc4d742a550a049885e8aac79b49d4, type: 3}
     - target: {fileID: 1000013304306144, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
       propertyPath: m_Name
-      value: player
+      value: player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4000011914616612, guid: 30ef59945f2a7ea499bbbe10a7d48f1a, type: 3}
       propertyPath: m_LocalPosition.x

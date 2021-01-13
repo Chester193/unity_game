@@ -86,12 +86,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Shoot() 
+    int GetLookDirectionAngle(int isDiagonal) {
+        if (isDiagonal == 0) {
+            if (lookDirection.y == 1 && lookDirection.x == 1) {
+                return 315;
+            } else if (lookDirection.y == 1 && lookDirection.x == 0) {
+                return 0;
+            } else if (lookDirection.y == 1 && lookDirection.x == -1) {
+                return 45;
+            } else if (lookDirection.y == 0 && lookDirection.x == 1) {
+                return 270;
+            } else if (lookDirection.y == 0 && lookDirection.x == -1) {
+                return 90;
+            } else if (lookDirection.y == -1 && lookDirection.x == 1) {
+                return 225;
+            } else if (lookDirection.y == -1 && lookDirection.x == 0) {
+                return 180;
+            } else if (lookDirection.y == -1 && lookDirection.x == -1) {
+                return 135;
+            }
+        }
+        return (int) (lookDirection.y * 180 - lookDirection.x * 90);
+    }
+
+     void Shoot() 
     {
         // Pistol
         if (currentWeapon == 0 && Time.time > nextFireTime)
         {
-            GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+            GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.Euler(new Vector3(0, 0, GetLookDirectionAngle(0))));
             BulletBehaviour bullet = bulletObject.GetComponent<BulletBehaviour>();
             bullet.Launch(lookDirection, 20f);
             nextFireTime = Time.time + pistolCooldown;
@@ -103,7 +126,7 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < Random.Range(5, 15); i++)
             {
 
-                GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+                GameObject bulletObject = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.Euler(new Vector3(0, 0, GetLookDirectionAngle(0))));
                 BulletBehaviour bullet = bulletObject.GetComponent<BulletBehaviour>();
                 bullet.Launch(lookDirection * Random.Range(10f, 15f) + new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)), 1);
             }
@@ -112,22 +135,22 @@ public class PlayerController : MonoBehaviour
         // Diagonal gun
         else if (currentWeapon == 2 && Time.time > nextFireTime)
         {
-            GameObject bullet = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
-            GameObject bullet2 = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
-            GameObject bullet3 = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.Euler(new Vector3(0, 0, GetLookDirectionAngle(0))));
+            GameObject bullet2 = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.Euler(new Vector3(0, 0, GetLookDirectionAngle(1))));
+            GameObject bullet3 = Instantiate(bulletPrefab, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.Euler(new Vector3(0, 0, GetLookDirectionAngle(1))));
             BulletBehaviour frontBullet = bullet.GetComponent<BulletBehaviour>();
             BulletBehaviour leftBullet = bullet2.GetComponent<BulletBehaviour>();
             BulletBehaviour rightBullet = bullet3.GetComponent<BulletBehaviour>();
-            frontBullet.Launch(lookDirection, 10f);
-            rightBullet.Launch(GetDiagonals(lookDirection)[0], 10f);
-            leftBullet.Launch(GetDiagonals(lookDirection)[1], 10f);
+            frontBullet.Launch(lookDirection, 15f);
+            rightBullet.Launch(GetDiagonals(lookDirection)[0], 15f);
+            leftBullet.Launch(GetDiagonals(lookDirection)[1], 15f);
             nextFireTime = Time.time + diagonalCooldown;
         }
         // Grenade
         else if (currentWeapon == 3 && Time.time > nextFireTime)
         {
             GameObject bulletObject = Instantiate(explodingBulletObject, rigidbody2d.position + Vector2.up * 0.2f, Quaternion.identity);
-            ExplodingBulletBehaviour bullet = bulletObject.GetComponent<ExplodingBulletBehaviour>();
+            GrenadeBehaviour bullet = bulletObject.GetComponent<GrenadeBehaviour>();
             bullet.Launch(lookDirection, 10f);
             nextFireTime = Time.time + grenadeCooldown;
         }
