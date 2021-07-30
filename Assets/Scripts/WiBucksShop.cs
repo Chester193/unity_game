@@ -45,7 +45,7 @@ public class WiBucksShop : MonoBehaviour
             }
             if(itemId == 4) //max energy
             {
-                PlayerStats.UpdateEnergy(10);
+                PlayerStats.UpdateEnergy(5);
             }
             if(itemId == 5)
             {

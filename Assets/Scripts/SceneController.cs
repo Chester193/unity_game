@@ -34,6 +34,7 @@ public class SceneController : MonoBehaviour
 
     void Play()
     {
+        //PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("ChooseMap");
     }
 }
